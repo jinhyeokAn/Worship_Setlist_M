@@ -21,8 +21,12 @@ export default function Home() {
     [],
   );
   const recent = sorted.slice(0, 3);
-  const filtered = sorted.filter((s) =>
-    s.title.toLowerCase().includes(query.trim().toLowerCase()),
+  const q = query.trim().toLowerCase();
+  const filtered = sorted.filter(
+    (s) =>
+      !q ||
+      s.title.toLowerCase().includes(q) ||
+      s.songs.some((song) => song.title.toLowerCase().includes(q)),
   );
 
   return (
@@ -108,6 +112,10 @@ export default function Home() {
               <ol className="flex flex-col gap-1">
                 {filtered.map((s, i) => {
                   const cover = coverFor(s.songs);
+                  const matchedSong = q
+                    ? s.songs.find((song) => song.title.toLowerCase().includes(q))
+                    : undefined;
+                  const subtitleSong = matchedSong ?? s.songs[0];
                   return (
                     <li key={s.id}>
                       <Link
@@ -132,8 +140,10 @@ export default function Home() {
                             {s.title}
                           </span>
                           <span className="block truncate text-xs text-zinc-500">
-                            {s.songs[0]?.title}
-                            {s.songs.length > 1 && ` 외 ${s.songs.length - 1}곡`}
+                            {matchedSong && "🎵 "}
+                            {subtitleSong?.title}
+                            {s.songs.length > 1 &&
+                              ` 외 ${s.songs.length - 1}곡`}
                           </span>
                         </span>
                         <span className="shrink-0 text-xs text-zinc-500">
