@@ -354,7 +354,7 @@ function RepeatOneIcon() {
 }
 function VolumeIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="shrink-0 text-zinc-400">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" className="shrink-0 text-zinc-400">
       <path d="M4 9v6h4l5 5V4L8 9H4zM16.5 12a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" />
     </svg>
   );
