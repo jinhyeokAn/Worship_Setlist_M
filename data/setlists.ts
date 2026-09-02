@@ -32,6 +32,10 @@ export const setlists: Setlist[] = [
     id: "2026-09-06",
     title: "9월 6일 콘티",
     date: "2026-09-06",
+    verse: {
+      reference: "요한복음 15:9",
+      text: "아버지께서 나를 사랑하신 것 같이 나도 너희를 사랑하였으니 나의 사랑 안에 거하라.",
+    },
     songs: [
       { title: "손잡고 함께가세", url: "https://youtu.be/MB83DFD4XW0" },
       { title: "주 사랑이 내게 들어와", url: "https://youtu.be/HgiNfcAWmhI" },
