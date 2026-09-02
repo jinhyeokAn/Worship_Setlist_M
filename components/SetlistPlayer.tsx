@@ -20,6 +20,8 @@ type YTPlayer = {
   pauseVideo: () => void;
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
   setVolume: (v: number) => void;
+  getCurrentTime: () => number;
+  getDuration: () => number;
   destroy: () => void;
 };
 
@@ -49,6 +51,8 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const repeatModeRef = useRef(repeatMode);
   const orderRef = useRef(order);
+  const isPlayingRef = useRef(isPlaying);
+  const endHandledRef = useRef(false);
 
   useEffect(() => {
     repeatModeRef.current = repeatMode;
@@ -56,6 +60,9 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
   useEffect(() => {
     orderRef.current = order;
   }, [order]);
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
 
   const videoIds = songs.map((s) => getYoutubeVideoId(s.url));
   const currentId = videoIds[current];
@@ -90,6 +97,18 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
     setCurrent(orderRef.current[nextPos]);
   }
 
+  function handleEnded() {
+    if (endHandledRef.current) return;
+    endHandledRef.current = true;
+    if (repeatModeRef.current === "one") {
+      playerRef.current?.seekTo(0, true);
+      playerRef.current?.playVideo();
+      endHandledRef.current = false;
+    } else {
+      goRelative(1);
+    }
+  }
+
   useEffect(() => {
     if (!apiReady || !mountRef.current || !currentId) return;
 
@@ -102,12 +121,7 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
         },
         onStateChange: (e: { data: number }) => {
           if (e.data === window.YT.PlayerState.ENDED) {
-            if (repeatModeRef.current === "one") {
-              playerRef.current?.seekTo(0, true);
-              playerRef.current?.playVideo();
-            } else {
-              goRelative(1);
-            }
+            handleEnded();
           } else if (e.data === window.YT.PlayerState.PLAYING) {
             setIsPlaying(true);
           } else if (e.data === window.YT.PlayerState.PAUSED) {
@@ -124,8 +138,26 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiReady]);
 
+  // Fullscreen playback can swallow the YouTube IFrame API's onStateChange
+  // (ENDED) message on some mobile browsers, so poll playback position as a
+  // fallback to still auto-advance when that happens.
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const player = playerRef.current;
+      if (!player || !isPlayingRef.current) return;
+      const duration = player.getDuration();
+      const time = player.getCurrentTime();
+      if (duration > 0 && duration - time < 0.75) {
+        handleEnded();
+      }
+    }, 500);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     if (playerRef.current && currentId) {
+      endHandledRef.current = false;
       playerRef.current.loadVideoById(currentId);
     }
   }, [currentId]);
