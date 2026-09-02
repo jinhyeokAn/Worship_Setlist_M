@@ -27,4 +27,15 @@ export type Setlist = {
 
 // 새 콘티를 추가하려면 이 배열에 객체를 하나 더 넣고 git push 하면 됩니다.
 // 자세한 방법은 README.md 참고.
-export const setlists: Setlist[] = [];
+export const setlists: Setlist[] = [
+  {
+    id: "2026-09-06",
+    title: "9월 6일 콘티",
+    date: "2026-09-06",
+    songs: [
+      { title: "손잡고 함께가세", url: "https://youtu.be/MB83DFD4XW0" },
+      { title: "주 사랑이 내게 들어와", url: "https://youtu.be/HgiNfcAWmhI" },
+      { title: "나 주님을 모른다하여도", url: "https://youtu.be/VeuP0yejeYM" },
+    ],
+  },
+];
