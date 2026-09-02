@@ -5,6 +5,13 @@ export type Song = {
   url: string;
 };
 
+export type Verse = {
+  /** 성경 본문 위치, 예: "요한복음 3:16" */
+  reference: string;
+  /** 본문 내용 */
+  text: string;
+};
+
 export type Setlist = {
   /** URL에 쓰이는 고유 id (영문/숫자/하이픈 권장) */
   id: string;
@@ -12,6 +19,8 @@ export type Setlist = {
   title: string;
   /** 날짜, YYYY-MM-DD */
   date: string;
+  /** 이번 예배 말씀 본문 (선택) */
+  verse?: Verse;
   /** 순서대로 정리한 곡 목록 */
   songs: Song[];
 };

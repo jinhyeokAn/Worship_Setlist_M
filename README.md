@@ -14,6 +14,10 @@ export const setlists: Setlist[] = [
     id: "2026-09-06",           // URL에 쓰이는 고유 id
     title: "9월 첫째주 예배",     // 콘티 제목
     date: "2026-09-06",         // YYYY-MM-DD
+    verse: {                    // 이번 예배 말씀 (선택, 없으면 통째로 생략 가능)
+      reference: "요한복음 3:16",
+      text: "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니...",
+    },
     songs: [
       { title: "은혜", url: "https://www.youtube.com/watch?v=xxxxxxxxxxx" },
       { title: "주 은혜임을", url: "https://youtu.be/xxxxxxxxxxx" },

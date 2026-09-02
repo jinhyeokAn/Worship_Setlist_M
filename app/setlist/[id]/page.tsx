@@ -22,6 +22,17 @@ export default async function SetlistPage({
         {setlist.date} · {setlist.songs.length}곡
       </p>
 
+      {setlist.verse && (
+        <blockquote className="mt-4 rounded-lg border-l-4 border-zinc-300 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-900">
+          <p className="whitespace-pre-line text-sm leading-relaxed">
+            {setlist.verse.text}
+          </p>
+          <cite className="mt-2 block text-xs not-italic text-zinc-500">
+            {setlist.verse.reference}
+          </cite>
+        </blockquote>
+      )}
+
       <div className="mt-6">
         <SetlistPlayer setlist={setlist} />
       </div>
