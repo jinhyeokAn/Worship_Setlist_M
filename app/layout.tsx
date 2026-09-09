@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "콘티 모음",
+  title: "광천교회 중등부 요셉피아 콘티모음",
   description: "찬양 콘티 유튜브 링크를 한 번에 모아보는 사이트",
 };
 
