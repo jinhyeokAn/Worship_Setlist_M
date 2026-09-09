@@ -42,4 +42,14 @@ export const setlists: Setlist[] = [
       { title: "나 주님을 모른다하여도", url: "https://youtu.be/VeuP0yejeYM" },
     ],
   },
+  {
+    id: "2026-09-13",
+    title: "9월 13일 콘티",
+    date: "2026-09-13",
+    songs: [
+      { title: "주를 찾는 모든 자들이", url: "https://youtu.be/Fi2waeWY18g" },
+      { title: "춤추는 세대", url: "https://youtu.be/i_DL8AjxGCQ" },
+      { title: "나 주님을 모른다 하여도", url: "https://youtu.be/VeuP0yejeYM" },
+    ],
+  },
 ];
