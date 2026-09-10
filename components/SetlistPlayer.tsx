@@ -52,6 +52,7 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
   const repeatModeRef = useRef(repeatMode);
   const orderRef = useRef(order);
   const isPlayingRef = useRef(isPlaying);
+  const currentRef = useRef(current);
   const endHandledRef = useRef(false);
 
   useEffect(() => {
@@ -63,6 +64,9 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
   useEffect(() => {
     isPlayingRef.current = isPlaying;
   }, [isPlaying]);
+  useEffect(() => {
+    currentRef.current = current;
+  }, [current]);
 
   const videoIds = songs.map((s) => getYoutubeVideoId(s.url));
   const currentId = videoIds[current];
@@ -85,7 +89,7 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
   }, [apiReady]);
 
   function goRelative(step: 1 | -1) {
-    const pos = orderRef.current.indexOf(current);
+    const pos = orderRef.current.indexOf(currentRef.current);
     const nextPos = pos + step;
     if (nextPos < 0) return;
     if (nextPos >= orderRef.current.length) {
