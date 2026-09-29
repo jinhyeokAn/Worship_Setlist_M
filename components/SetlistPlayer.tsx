@@ -41,7 +41,7 @@ export default function SetlistPlayer({ setlist }: { setlist: Setlist }) {
   const [current, setCurrent] = useState(0);
   const [order, setOrder] = useState<number[]>(() => songs.map((_, i) => i));
   const [shuffleOn, setShuffleOn] = useState(false);
-  const [repeatMode, setRepeatMode] = useState<RepeatMode>("off");
+  const [repeatMode, setRepeatMode] = useState<RepeatMode>("all");
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(80);
   const [apiReady, setApiReady] = useState(
