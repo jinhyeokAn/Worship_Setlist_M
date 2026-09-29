@@ -42,9 +42,9 @@ export default function SiteFooter() {
       <button
         type="button"
         onClick={handleTap}
-        className="text-sm italic text-zinc-600 transition hover:text-zinc-400"
+        className="text-sm text-zinc-600 transition hover:text-zinc-400"
       >
-        Soli Deo Gloria
+        요셉피아 중등부
       </button>
       {isAdmin && (
         <div className="mt-2">

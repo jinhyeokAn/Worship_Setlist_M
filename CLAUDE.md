@@ -18,7 +18,7 @@ Next.js 16 (App Router) + TypeScript + Tailwind CSS v4. 데이터는 DB 없이
 
 두 가지 방법 — 자세한 내용은 `README.md` 참고.
 
-1. **관리자 화면** (`/admin`, 사이트 맨 아래 "Soli Deo Gloria" 3번 탭으로 진입):
+1. **관리자 화면** (`/admin`, 사이트 맨 아래 "요셉피아 중등부" 3번 탭으로 진입):
    로그인 후 폼으로 등록/수정/삭제하면 GitHub Contents API로 `main`이 아니라
    **개발 브랜치(`claude/konti-youtube-link-aggregator-f9jt4w`)에 직접 커밋**된다
    (`app/admin/actions.ts`의 `BRANCH` 상수). `ADMIN_ID`/`ADMIN_PASSWORD`/
