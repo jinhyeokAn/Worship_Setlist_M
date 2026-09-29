@@ -62,4 +62,14 @@ export const setlists: Setlist[] = [
       { title: "나 주님을 모른다 하여도", url: "https://youtu.be/VeuP0yejeYM" },
     ],
   },
+  {
+    id: "2026-10-04",
+    title: "10월 4일 콘티",
+    date: "2026-10-04",
+    songs: [
+      { title: "선하신 목자", url: "https://youtu.be/2O4geYCjsnw" },
+      { title: "모든 이름 위에 뛰어난 이름", url: "https://youtu.be/RM7RiBIHvKY" },
+      { title: "내 이름 아시죠", url: "https://youtu.be/LOqNAXUO6bU" },
+    ],
+  },
 ];
