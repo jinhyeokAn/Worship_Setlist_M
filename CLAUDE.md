@@ -10,27 +10,37 @@
 ## 스택
 
 Next.js 16 (App Router) + TypeScript + Tailwind CSS v4. 데이터는 DB 없이
-`data/setlists.ts` 안의 배열로 관리한다 (콘티 추가 = 이 파일 수정 + git push).
+`data/setlists.json` 배열로 관리한다 (`data/setlists.ts`는 이 JSON을 그대로
+불러오기만 함). 콘티 추가는 아래 관리자 화면을 쓰거나, 이 JSON 파일을 직접
+수정 + git push해도 된다.
 
 ## 콘티(곡 목록) 추가하는 법
 
-`data/setlists.ts`의 `setlists` 배열에 객체를 하나 추가한다. 형식과 예시는
-`README.md`에 있음. 요약:
+두 가지 방법 — 자세한 내용은 `README.md` 참고.
 
-```ts
+1. **관리자 화면** (`/admin`, 사이트 맨 아래 "Soli Deo Gloria" 3번 탭으로 진입):
+   로그인 후 폼으로 등록/수정/삭제하면 GitHub Contents API로 `main`이 아니라
+   **개발 브랜치(`claude/konti-youtube-link-aggregator-f9jt4w`)에 직접 커밋**된다
+   (`app/admin/actions.ts`의 `BRANCH` 상수). `ADMIN_ID`/`ADMIN_PASSWORD`/
+   `GITHUB_TOKEN` 환경변수가 없으면 동작하지 않는다.
+2. **파일 직접 수정**: `data/setlists.json` 배열에 객체를 하나 추가.
+
+```json
 {
-  id: "2026-09-13",       // URL slug, 안 겹치면 아무거나 (보통 날짜)
-  title: "9월 13일 콘티",
-  date: "2026-09-13",     // YYYY-MM-DD
-  verse: { reference: "...", text: "..." }, // 선택
-  songs: [
-    { title: "곡 제목", url: "유튜브 링크(watch/youtu.be/shorts 다 지원)" },
-  ],
+  "id": "2026-10-04",
+  "title": "10월 4일 콘티",
+  "date": "2026-10-04",
+  "verse": { "reference": "...", "text": "..." },
+  "songs": [
+    { "title": "곡 제목", "url": "유튜브 링크(watch/youtu.be/shorts 다 지원)" }
+  ]
 }
 ```
 
 곡은 배열 순서대로 표시/재생됨. 추가 후 `npm run build && npm run lint`로
-확인하고 커밋/푸시하면 끝.
+확인하고 커밋/푸시하면 끝. **관리자 화면에서 직접 커밋한 경우 개발 브랜치가
+로컬보다 앞서갈 수 있으므로, 다음 작업 전에 `git fetch` + merge로 동기화할 것**
+— 청년부 자매 저장소에서 반복적으로 겪은 패턴과 동일.
 
 ## 배포 (중요 — 안 지키면 사이트 안 바뀜)
 

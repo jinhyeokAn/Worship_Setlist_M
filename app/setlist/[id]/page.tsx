@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { setlists } from "@/data/setlists";
 import SetlistPlayer from "@/components/SetlistPlayer";
+import AdminSetlistControls from "@/components/AdminSetlistControls";
 
 export default async function SetlistPage({
   params,
@@ -23,15 +24,28 @@ export default async function SetlistPage({
       <p className="text-sm text-zinc-400">
         {setlist.date} · {setlist.songs.length}곡
       </p>
+      <AdminSetlistControls id={setlist.id} title={setlist.title} />
 
       {setlist.verse && (
         <blockquote className="mt-4 rounded-lg border-l-4 border-[var(--accent)] bg-white/5 p-4">
           <p className="whitespace-pre-line text-sm leading-relaxed text-zinc-200">
             {setlist.verse.text}
           </p>
-          <cite className="mt-2 block text-xs not-italic text-zinc-500">
-            {setlist.verse.reference}
-          </cite>
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+            <cite className="text-xs not-italic text-zinc-500">
+              {setlist.verse.reference}
+            </cite>
+            {setlist.verse.link && (
+              <a
+                href={setlist.verse.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 rounded-full border border-[var(--accent)]/40 px-3 py-1 text-xs text-[var(--accent)] transition hover:bg-[var(--accent)]/10"
+              >
+                전체 본문 보기 ↗
+              </a>
+            )}
+          </div>
         </blockquote>
       )}
 

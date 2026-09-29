@@ -5,6 +5,8 @@ import Link from "next/link";
 import { setlists } from "@/data/setlists";
 import { getYoutubeThumbnail, getYoutubeVideoId } from "@/lib/youtube";
 
+const ALL_MONTHS = "all";
+
 function coverFor(songs: { url: string }[]): string | null {
   for (const song of songs) {
     const id = getYoutubeVideoId(song.url);
@@ -21,6 +23,46 @@ export default function Home() {
     [],
   );
   const recent = sorted.slice(0, 3);
+
+  // 날짜 내림차순으로 이미 정렬돼 있으므로, 등장 순서 그대로 중복만 제거하면 최신순이 됨.
+  const yearOptions = useMemo(() => {
+    const seen = new Set<string>();
+    const years: string[] = [];
+    for (const s of sorted) {
+      const y = s.date.slice(0, 4);
+      if (!seen.has(y)) {
+        seen.add(y);
+        years.push(y);
+      }
+    }
+    return years;
+  }, [sorted]);
+
+  function monthsInYear(year: string): string[] {
+    const seen = new Set<string>();
+    const months: string[] = [];
+    for (const s of sorted) {
+      if (s.date.slice(0, 4) !== year) continue;
+      const m = s.date.slice(5, 7);
+      if (!seen.has(m)) {
+        seen.add(m);
+        months.push(m);
+      }
+    }
+    return months;
+  }
+
+  const [selectedYear, setSelectedYear] = useState(() => yearOptions[0] ?? "");
+  const [selectedMonth, setSelectedMonth] = useState(
+    () => monthsInYear(yearOptions[0] ?? "")[0] ?? ALL_MONTHS,
+  );
+  const currentYearMonths = monthsInYear(selectedYear);
+
+  function changeYear(year: string) {
+    setSelectedYear(year);
+    setSelectedMonth(monthsInYear(year)[0] ?? ALL_MONTHS);
+  }
+
   const q = query.trim().toLowerCase();
   const filtered = sorted.filter(
     (s) =>
@@ -28,6 +70,13 @@ export default function Home() {
       s.title.toLowerCase().includes(q) ||
       s.songs.some((song) => song.title.toLowerCase().includes(q)),
   );
+  // 검색 중일 땐 년/월 상관없이 전체에서 찾고, 검색이 없을 땐 고른 년/월만 보여줌.
+  const displayed = q
+    ? filtered
+    : filtered.filter((s) => {
+        if (s.date.slice(0, 4) !== selectedYear) return false;
+        return selectedMonth === ALL_MONTHS || s.date.slice(5, 7) === selectedMonth;
+      });
 
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">
@@ -101,16 +150,45 @@ export default function Home() {
           )}
 
           <section>
-            <h2 className="mb-3 text-sm font-bold text-zinc-300">
-              전체 콘티 리스트
-            </h2>
-            {filtered.length === 0 ? (
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h2 className="text-sm font-bold text-zinc-300">
+                전체 콘티 리스트
+              </h2>
+              {!q && (
+                <div className="flex gap-1.5">
+                  <select
+                    value={selectedYear}
+                    onChange={(e) => changeYear(e.target.value)}
+                    className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-xs text-zinc-300 outline-none focus:border-[var(--accent)]"
+                  >
+                    {yearOptions.map((y) => (
+                      <option key={y} value={y}>
+                        {y}년
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={selectedMonth}
+                    onChange={(e) => setSelectedMonth(e.target.value)}
+                    className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-xs text-zinc-300 outline-none focus:border-[var(--accent)]"
+                  >
+                    {currentYearMonths.map((m) => (
+                      <option key={m} value={m}>
+                        {Number(m)}월
+                      </option>
+                    ))}
+                    <option value={ALL_MONTHS}>전체</option>
+                  </select>
+                </div>
+              )}
+            </div>
+            {displayed.length === 0 ? (
               <p className="rounded-lg border border-dashed border-white/15 p-6 text-center text-sm text-zinc-400">
-                검색 결과가 없습니다.
+                {q ? "검색 결과가 없습니다." : "이 달엔 등록된 콘티가 없습니다."}
               </p>
             ) : (
               <ol className="flex flex-col gap-1">
-                {filtered.map((s, i) => {
+                {displayed.map((s, i) => {
                   const cover = coverFor(s.songs);
                   const matchedSong = q
                     ? s.songs.find((song) => song.title.toLowerCase().includes(q))
