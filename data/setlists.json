@@ -61,5 +61,25 @@
       { "title": "주를 찾는 모든 자들이", "url": "https://youtu.be/Fi2waeWY18g" },
       { "title": "내 이름 아시죠", "url": "https://youtu.be/LOqNAXUO6bU" }
     ]
+  },
+  {
+    "id": "2026-11-01",
+    "title": "11월 1일 콘티",
+    "date": "2026-11-01",
+    "songs": [
+      { "title": "고된 하루를 보내고", "url": "https://youtu.be/psWCyDCNNkM" },
+      { "title": "난 예수의 날빛이오", "url": "https://youtu.be/PRQ3dREdygo" },
+      { "title": "성령이 오셨네", "url": "https://youtu.be/XbQU6bPr2Mg" }
+    ]
+  },
+  {
+    "id": "2026-11-08",
+    "title": "11월 8일 콘티",
+    "date": "2026-11-08",
+    "songs": [
+      { "title": "말씀이 내 능력 되어", "url": "https://youtu.be/MkDMVdFlTCQ" },
+      { "title": "끝없는 사랑/주님은 신실하고", "url": "https://youtu.be/IRxLKV8KzUI" },
+      { "title": "성령이 오셨네", "url": "https://youtu.be/XbQU6bPr2Mg" }
+    ]
   }
 ]
