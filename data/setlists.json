@@ -81,5 +81,25 @@
       { "title": "끝없는 사랑/주님은 신실하고", "url": "https://youtu.be/IRxLKV8KzUI" },
       { "title": "성령이 오셨네", "url": "https://youtu.be/XbQU6bPr2Mg" }
     ]
+  },
+  {
+    "id": "2026-11-22",
+    "title": "11월 22일 콘티",
+    "date": "2026-11-22",
+    "songs": [
+      { "title": "주를 바라보며", "url": "https://youtu.be/06l5-Nl-L8A" },
+      { "title": "서로", "url": "https://youtu.be/GLj_lz8nZCk" },
+      { "title": "성령이 오셨네", "url": "https://youtu.be/XbQU6bPr2Mg" }
+    ]
+  },
+  {
+    "id": "2026-11-29",
+    "title": "11월 29일 콘티",
+    "date": "2026-11-29",
+    "songs": [
+      { "title": "나는 노래하네", "url": "https://youtu.be/2zRUhhBQt5g" },
+      { "title": "성령이 오셨네", "url": "https://youtu.be/XbQU6bPr2Mg" },
+      { "title": "나의 믿음 주께 있네", "url": "https://youtu.be/NoAWSAwgYVE" }
+    ]
   }
 ]
